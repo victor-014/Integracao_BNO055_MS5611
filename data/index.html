@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="data:,">
+    <title>Dashboard IMU</title>
+    <style>
+        body { font-family: sans-serif; text-align:center; }
+        #status { margin-bottom: 20px; }
+        .sensor { font-size: 1.2em; margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h1>Dashboard IMU</h1>
+    <div id="status">Conectando...</div>
+    <div class="sensor">Roll: <span id="roll">0</span></div>
+    <div class="sensor">Pitch: <span id="pitch">0</span></div>
+    <div class="sensor">Yaw: <span id="yaw">0</span></div>
+    <div class="sensor">Altitude: <span id="altitude">0</span></div>
+
+    <canvas id="graph" width="400" height="200"></canvas>
+    <script src="script.js"></script>
+</body>
+</html>
