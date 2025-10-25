@@ -2,7 +2,6 @@
 #include "Wire.h"
 
 Adafruit_BNO055 bno = Adafruit_BNO055(55, BNO_ADDRESS, &Wire);
-unsigned long tempo;
 
 void initBNO055(){
     if (!bno.begin()){
@@ -56,7 +55,6 @@ void configBNO055(){
     displaySensorStatus();
 
     bno.setExtCrystalUse(true);
-    tempo = millis();
 }
 
 
@@ -117,8 +115,6 @@ void printEvent(sensors_event_t* event) {
 }
 
 void leituraBNO055(void){
-    if (/*millis()-tempo > BNO055_SAMPLERATE_DELAY_MS*/ 1){
-        tempo = millis();
         //could add VECTOR_ACCELEROMETER, VECTOR_MAGNETOMETER,VECTOR_GRAVITY...
         sensors_event_t orientationData , angVelocityData , linearAccelData, magnetometerData, accelerometerData, gravityData;
         bno.getEvent(&orientationData, Adafruit_BNO055::VECTOR_EULER);
@@ -153,6 +149,4 @@ void leituraBNO055(void){
         Serial.println(mag);
 
         Serial.println("--");
-    }
-    //delay(BNO055_SAMPLERATE_DELAY_MS);
 }

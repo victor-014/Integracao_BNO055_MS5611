@@ -1,0 +1,81 @@
+body {
+    font-family: "Segoe UI", sans-serif;
+    background: radial-gradient(circle at top, #0a1a2f 0%, #030b14 100%);
+    color: #b0d9ff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    margin-top: 20px;
+    color: #3bb7ff;
+    text-shadow: 0 0 10px #00b7ff;
+}
+
+#status {
+    margin: 10px 0;
+    font-size: 1.1em;
+    color: #5cd6ff;
+}
+
+.sensor-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 8px;
+    padding: 10px;
+    max-width: 480px;
+    margin: auto;
+}
+
+.sensor {
+    background: rgba(0, 35, 70, 0.6);
+    border: 1px solid #0ff;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
+    padding: 10px;
+    font-size: 0.9em;
+}
+
+.graph-container {
+    background: rgba(0, 20, 40, 0.8);
+    border-radius: 12px;
+    margin: 20px auto;
+    padding: 10px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 0 20px rgba(0, 200, 255, 0.3);
+}
+
+graph-container h3{
+    color: #39c8ff;
+    margin-bottom: 10px;
+}
+
+canvas {
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    background: rgba(0, 10, 25, 0.9);
+}
+
+#legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 5px;
+    gap: 10px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8em;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+}

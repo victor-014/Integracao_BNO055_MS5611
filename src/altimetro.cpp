@@ -5,7 +5,7 @@ MS5611 altimetro(0x77);
 float media = 0;
 void calibMS5611(){
     Serial.println("Iniciando Calibração do MS5611...");
-    altimetro.setOversampling(OSR_ULTRA_LOW); //número de bits de precisão da leitura: ULTRA_LOW=8, ULTRA_HIGH=12
+    altimetro.setOversampling(OSR_ULTRA_HIGH); //número de bits de precisão da leitura: ULTRA_LOW=8, ULTRA_HIGH=12
     int CAL_SAMPLES = 100;
     float Total = 0;
     float leitura_calibracao = 0;

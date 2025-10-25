@@ -6,8 +6,10 @@
 #include <WiFi.h>
 #include <ArduinoJson.h>
 
+unsigned long tempo;
+
 const char* ssid = "SensorIMU";
-const char* password = "123456789";
+const char* password = "dashboard";
 
 const IPAddress apIP = IPAddress(192, 168, 4, 1);
 const IPAddress mask = IPAddress(255, 255, 255 ,0);
@@ -55,34 +57,65 @@ void setup() {
   delay(1000);
 }
 
+float posX = 0;
+float posY = 0;
+
 void loop() {
   ws.cleanupClients();
   
-  leituraBNO055();
-  leituraMS5611();
+  if (millis()-tempo>500){
+    tempo = millis();
+    //leituraBNO055();
+    //leituraMS5611();
 
-  // Monta JSON com roll, pitch, yaw e altitude
-  sensors_event_t orientationData;
-  bno.getEvent(&orientationData, Adafruit_BNO055::VECTOR_EULER);
-  float roll = orientationData.orientation.x;
-  float pitch = orientationData.orientation.y;
-  float yaw = orientationData.orientation.z;
+    // Monta JSON com roll, pitch, yaw e altitude
+    sensors_event_t Atitude, Accel;
+    bno.getEvent(&Atitude, Adafruit_BNO055::VECTOR_EULER);
+    bno.getEvent(&Accel, Adafruit_BNO055::VECTOR_ACCELEROMETER);
+    float roll = Atitude.orientation.x;
+    float pitch = Atitude.orientation.y;
+    float yaw = Atitude.orientation.z;
 
-  float altitude = altimetro.getAltitude(media);
+    float accelX = Accel.acceleration.x;
+    float accelY = Accel.acceleration.y;
+    float accelZ= Accel.acceleration.z;
 
-  StaticJsonDocument<128> doc;
-  doc["roll"] = roll;
-  doc["pitch"] = pitch;
-  doc["yaw"] = yaw;
-  doc["altitude"] = altitude;
-  String json;
-  serializeJson(doc, json);
+    float alt = 0;
+    for (int j=0; j<10; j++){
+      altimetro.read();
+      delay(10);
+      alt += altimetro.getAltitude(media);
+      Serial.println(alt);
+    }
+    alt /= 10;
+    Serial.println(alt);
 
-  ws.textAll(json);
+    float temperature = altimetro.getTemperature();
+    // Serial.println(accelX);
+    // Serial.println(accelY);
+    // Serial.println(accelZ);
+    // Serial.println(alt);
+    // Serial.println(temperature);
+    posX += 1;
+    posY += 1;
+    StaticJsonDocument<512> doc;
+    doc["roll"] = roll;
+    doc["pitch"] = pitch;
+    doc["yaw"] = yaw;
+    doc["ax"] = accelX;
+    doc["ay"] = accelY;
+    doc["az"] = accelZ;
+    doc["altitude"] = alt;
+    doc["temperature"] = temperature;
+    doc["posX"] = posX;
+    doc["posY"] = posY;
+    String json;
+    serializeJson(doc, json);
 
-  ws.cleanupClients();
+    ws.textAll(json);
 
-  delay(500);
+    ws.cleanupClients();
+  }
 }
 
 void onWsEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type,

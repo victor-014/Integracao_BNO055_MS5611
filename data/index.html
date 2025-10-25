@@ -1,24 +1,44 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="data:,">
-    <title>Dashboard IMU</title>
-    <style>
-        body { font-family: sans-serif; text-align:center; }
-        #status { margin-bottom: 20px; }
-        .sensor { font-size: 1.2em; margin: 5px 0; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:,">
+  <title>Dashboard IMU</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Dashboard IMU</h1>
-    <div id="status">Conectando...</div>
-    <div class="sensor">Roll: <span id="roll">0</span></div>
-    <div class="sensor">Pitch: <span id="pitch">0</span></div>
-    <div class="sensor">Yaw: <span id="yaw">0</span></div>
-    <div class="sensor">Altitude: <span id="altitude">0</span></div>
+  <h1>Dashboard IMU</h1>
+  <div id="status">Conectando...</div>
 
-    <canvas id="graph" width="400" height="200"></canvas>
-    <script src="script.js"></script>
+  <div class="sensor-container">
+    <div class="sensor">Roll:         <span id="roll">0</span>°</div>
+    <div class="sensor">Pitch:        <span id="pitch">0</span>°</div>
+    <div class="sensor">Yaw:          <span id="yaw">0</span>°</div>
+    <div class="sensor">Altitude:     <span id="altitude">0</span> m</div>
+    <div class="sensor">Temperatura:  <span id="temp">0</span> °C</div>
+    <div class="sensor">Accel X:      <span id="ax">0</span> m/s^2</div>
+    <div class="sensor">Accel Y:      <span id="ay">0</span> m/s^2</div>
+    <div class="sensor">Accel Z:      <span id="az">0</span> m/s^2</div>
+    <div class="sensor">PosX:         <span id="posX">0</span> m</div>
+    <div class="sensor">PosY:         <span id="posY">0</span> m</div>
+  </div>
+
+  <div class="graph-container">
+    <h3>Altitude</h3>
+    <canvas id="altitudeGraph"></canvas>
+  </div>
+
+  <div class="graph-container">
+    <h3>Aceleração</h3>
+    <canvas id="accelGraph"></canvas>
+    <div id="legend">
+      <div class="legend-item"><div class="legend-color" style="background:#00ffea"></div>Ax</div>
+      <div class="legend-item"><div class="legend-color" style="background:#3bb7ff"></div>Ay</div>
+      <div class="legend-item"><div class="legend-color" style="background:#005eff"></div>Az</div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
